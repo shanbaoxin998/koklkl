@@ -46,11 +46,11 @@ spring:
   devtools:
     restart:
       enabled: false
-  #  rabbitmq:
-  #    host: 127.0.0.1
-  #    port: 5672
-  #    username: guest
-  #    password: guest
+#    rabbitmq:
+#      host: 192.168.147.129
+#      port: 5672
+#      username: guest
+#      password: guest
   redis:
     host: 192.168.147.129
     port: 6379
