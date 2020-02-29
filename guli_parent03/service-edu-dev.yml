@@ -1,0 +1,92 @@
+server:
+  port: 8001
+
+#test
+####
+#
+#
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8763//eureka/
+  instance:
+    lease-expiration-duration-in-seconds: 10
+    lease-renewal-interval-in-seconds: 5
+    prefer-ip-address: true
+
+#熔断器启用
+feign:
+  hystrix:
+    enabled: true
+  #设置feign超时时间
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+#设置hystrix超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 8000
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:com/atguigu/eduservice/*/mapper/*.xml
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+spring:
+  devtools:
+    restart:
+      enabled: false
+  #  rabbitmq:
+  #    host: 127.0.0.1
+  #    port: 5672
+  #    username: guest
+  #    password: guest
+  redis:
+    host: 192.168.147.129
+    port: 6379
+    database: 0
+    timeout: 1800000
+    password:
+    jedis:
+      pool:
+        max-active: 20 #最大连接数
+        max-wait: -1    #最大阻塞等待时间(负数表示没限制)
+        max-idle: 5    #最大空闲
+        min-idle: 0     #最小空闲
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/guli_edu
+    username: root
+    password: 654321
+    hikari:
+      connection-test-query: SELECT 1
+      connection-timeout: 60000
+      idle-timeout: 500000
+      max-lifetime: 540000
+      maximum-pool-size: 12
+      minimum-idle: 10
+      pool-name: GuliHikariPool
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+#暴露全部的监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#自动刷新测试数据
+config:
+  name: test
